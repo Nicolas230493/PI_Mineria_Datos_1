@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.env.*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Project-specific exclusions
+# Uncomment the following if you do not want to track data or logs
+# data/
+# logs/

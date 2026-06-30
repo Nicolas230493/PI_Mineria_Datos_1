@@ -1,0 +1,13 @@
+paso,accion,descripcion,filas_afectadas,decision
+1,Carga del dataset,Se cargó el archivo JSON crudo,0,Carga inicial
+2,Eliminación de duplicados exactos,Filas 100% idénticas en todas las columnas,126,Se eliminaron con keep=first
+3,Resolución de user_id duplicados,Usuarios con más de un registro,34,Se mantuvo el último registro con keep=last
+4,Normalización de subscription_plan,15 variantes unificadas en 3 categorías,0,"Mapeo a Básico, Estándar, Premium"
+5,Normalización de country,26 variantes unificadas en 7 países,0,Mapeo a nombres oficiales en español
+6,Normalización de favorite_genre,29 variantes unificadas en 7 géneros,0,Mapeo a nombres en español
+7,Corrección de customer_support_tickets,Valores negativos (-1),29,Reemplazados por 0
+8,Outliers en age,Edades negativas y mayores a 100,74,Imputados con la mediana (33)
+9,Outliers y nulos en monthly_watch_time_mins,"Valores negativos, mayores a 44640 y nulos",268,Imputados con la mediana (756.3)
+10,Imputación de favorite_genre,237 nulos,237,Reemplazados por Desconocido
+11,Tratamiento de last_login_date,"315 nulos, 31 inválidos y 103 fechas futuras",449,Imputados con la fecha mediana
+12,Conversión de last_login_date,Columna en formato string con formatos mixtos,0,Convertida a datetime64
