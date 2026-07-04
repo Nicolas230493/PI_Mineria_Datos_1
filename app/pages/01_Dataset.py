@@ -8,24 +8,37 @@ st.title("📅 Estructura y Calidad del Dataset")
 try:
     df = pd.read_csv("data/processed/streaming_users_clean.csv")
     
-    st.markdown("### 🔍 Muestreo Dimensional")
-    st.write(f"El dataset consolidado post-limpieza cuenta con exactamente **{df.shape[0]} filas** y **{df.shape[1]} columnas**.")
+    st.markdown("### Descripción general")
+    st.write(
+        "El dataset contiene información de usuarios de una plataforma de streaming latinoamericana. "
+        "Incluye variables demográficas, de comportamiento y comerciales para 8000 usuarios de 7 países."
+    )
     
-    st.markdown("### 👀 Vista Previa del Dataset Procesado")
+    st.markdown("### Vista previa del dataset procesado")
     st.dataframe(df.head(10), use_container_width=True)
     
-    st.markdown("### 🛡️ Matriz de Decisiones y Trazabilidad (Pipeline Log)")
-    st.write("Resumen ejecutivo de las principales anomalías detectadas en la fase de inspección y corregidas en el pipeline:")
-    
-    # Espejado con tu log_etl real de 12 pasos
-    pasos_limpieza = {
-        "Paso": [1, 2, 7, 8, 9, 11],
-        "Dimensión Afectada": ["Duplicados", "Inconsistencia de Planes", "Outliers Edad", "Outliers Edad", "Consumo Mensual", "last_login_date"],
-        "Evidencia Detectada": ["74 filas idénticas", "Siglas mezcladas y minúsculas", "Valores negativos", "Valores mayores a 100", "Negativos, nulos y excesivos", "Nulos, formatos mixtos y fechas futuras"],
-        "Acción Aplicada": ["Remoción estricta", "Mapeo con diccionario unificado", "Imputación con Mediana (33)", "Imputación con Mediana (33)", "Imputación con Mediana (756.3)", "Normalización y fecha mediana"],
-        "Impacto Final": ["8050 registros", "Estandarización comercial", "8050 registros conservados", "Consistencia etaria", "Consistencia de minutos", "Estructura datetime64 válida"]
-    }
-    st.table(pd.DataFrame(pasos_limpieza))
-    
+    st.markdown("### Resumen de calidad y transformaciones principales")
+    pasos_limpieza = pd.DataFrame({
+        "Paso": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "Descripción": [
+            "Eliminación de duplicados exactos",
+            "Resolución de user_id duplicados",
+            "Normalización de subscription_plan",
+            "Normalización de country",
+            "Normalización de favorite_genre",
+            "Análisis MCAR/MAR/MNAR",
+            "Imputación por grupo - monthly_watch_time_mins",
+            "Tratamiento de outliers - customer_support_tickets",
+            "Tratamiento de outliers - age",
+            "Tratamiento de outliers y nulos - monthly_watch_time_mins",
+            "Imputación de favorite_genre",
+            "Tratamiento de last_login_date"
+        ],
+        "Filas": [8034, 8000, 8000, 8000, 8000, 8000, 8000, 8000, 8000, 8000, 8000, 8000],
+        "Nulos": [753, 753, 753, 753, 753, 753, 560, 560, 560, 320, 83, 0],
+        "Retención (%)": [98.46, 98.04, 98.04, 98.04, 98.04, 98.04, 98.04, 98.04, 98.04, 98.04, 98.04, 98.04]
+    })
+    st.dataframe(pasos_limpieza, use_container_width=True)
+
 except FileNotFoundError:
-    st.error("⚠️ No se detectó 'streaming_users_clean.csv' en 'data/processed/'. Asegúrate de subirlo al repositorio.")
+    st.error("No se encontró el archivo 'streaming_users_clean.csv' en 'data/processed/'.")

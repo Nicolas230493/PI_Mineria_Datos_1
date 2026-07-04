@@ -1,31 +1,68 @@
 # Proyecto Integrador: Minería de Datos I
-Tablero interactivo y pipeline analítico sobre el comportamiento y consumo de usuarios de streaming.
+Pipeline de análisis de datos sobre comportamiento y consumo de usuarios de una plataforma de streaming latinoamericana.
 
-## 🎯 Objetivo del Proyecto
-El propósito de este proyecto consiste en diseñar e implementar un pipeline reproducible de ciencia de datos para auditar, limpiar y explorar un conjunto de datos ruidoso con 8,124 registros de usuarios de streaming. El análisis busca identificar patrones demográficos, evaluar relaciones de consumo frente a la fricción del servicio y aplicar reducción de dimensionalidad para entender la estructura latente de los datos, garantizando la trazabilidad total del proceso mediante justificaciones analíticas.
+## Información general
+- **Integrantes:** Nicolás Daniel Segovia Albarado y Joaquin Corvalan Celiz
+- **Comisión:** Turno Tarde — Sede Nodo Tecnológico
+- **Fecha:** Junio 2026
 
-## 📂 Estructura del Repositorio
-* **`data/`**: Repositorio de datos estructurado en `raw/` (dataset sucio original en formato JSON) y `processed/` (base de datos estabilizada final de 8,000 filas en formato CSV).
-* **`notebooks/`**: Secuencia indexada de 5 notebooks (`01_inspeccion_inicial.ipynb` a `05_conclusiones.ipynb`) que contienen el desarrollo técnico, código de curación y el análisis estadístico interactivo.
-* **`app/`**: Código fuente de la aplicación multipágina desarrollada en Streamlit (`Home.py` y directorio `pages/`).
-* **`logs/`**: Registro auditable de transformaciones estadísticas (`pipeline_log.csv`).
-* **`reports/`**: Espacio destinado al documento ejecutivo final.
+## Objetivo del proyecto
+Aplicar los contenidos de Minería de Datos I para construir un pipeline de análisis de datos reproducible, con decisiones justificadas y trazabilidad del proceso completo. El proyecto incluye inspección inicial, limpieza, análisis exploratorio, reducción de dimensionalidad mediante PCA y comunicación de resultados mediante una aplicación pública en Streamlit.
 
-## 🔧 Instrucciones de Reproducción
-1. Clonar este repositorio institucional de GitHub en su entorno local.
-2. Crear un entorno virtual de Python 3.12 ejecutando: `python -m venv .venv`.
-3. Activar el entorno virtual mediante la terminal de comandos de Linux.
-4. Instalar las dependencias exactas del proyecto utilizando: `pip install -r requirements.txt`.
-5. Para ejecutar la aplicación interactiva localmente, correr el comando: `streamlit run app/Home.py`.
-6. Los notebooks analíticos pueden auditarse secuencialmente iniciando desde la carpeta `notebooks/`.
+## Dataset
+- **Nombre:** streaming_users_dirty
+- **Formato original:** JSON
+- **Registros originales:** 8.160 filas
+- **Registros finales:** 8.000 filas
+- **Columnas:** 8 variables (user_id, age, subscription_plan, monthly_watch_time_mins, country, favorite_genre, last_login_date, customer_support_tickets)
+- **Descripción:** Usuarios de una plataforma de streaming de 7 países latinoamericanos (Argentina, Brasil, Chile, Colombia, México, Perú, Uruguay) con información demográfica, de consumo y de soporte técnico.
+- **Dataset original:** `data/raw/streaming_users_dirty.json`
+- **Dataset procesado:** `data/processed/streaming_users_clean.csv`
 
-## 📌 Principales Conclusiones
-El pipeline de calidad logró mitigar la pérdida de información estabilizando la base en 8,000 usuarios sin recurrir a filtrados destructivos. El análisis exploratorio (EDA) determinó que el consumo mensual de minutos mantiene una homogeneidad absoluta entre los diferentes planes y países de la región, registrando una correlación lineal nula (-0.01) respecto a los tickets de soporte abiertos. Finalmente, el Análisis de Componentes Principales (PCA) evidenció matemáticamente la bajísima correlación lineal del dataset, requiriendo un espectro amplio de 13 componentes independientes para lograr explicar el 80% de la variabilidad total de los datos.
+## Estructura del repositorio
 
-## 🔗 Enlaces del Proyecto
-* [🚀 Aplicación Interactiva en Streamlit Cloud](https://tu-usuario-app.streamlit.app)
-* [📓 Notebook 01: Inspección Inicial](notebooks/01_inspeccion_inicial.ipynb)
-* [📓 Notebook 02: Limpieza y Calidad](notebooks/02_calidad_y_limpieza.ipynb)
-* [📓 Notebook 03: Análisis Exploratorio (EDA)](notebooks/03_eda.ipynb)
-* [📓 Notebook 04: Escalamiento y PCA](notebooks/04_pca.ipynb)
-* [📓 Notebook 05: Respuestas y Conclusiones](notebooks/05_conclusiones.ipynb)
+PI_Mineria_Datos_1/
+├── README.md
+├── requirements.txt
+├── data/
+│ ├── raw/
+│ └── processed/
+├── notebooks/
+│ ├── 01_inspeccion_inicial.ipynb
+│ ├── 02_calidad_y_limpieza.ipynb
+│ ├── 03_eda.ipynb
+│ ├── 04_pca.ipynb
+│ └── 05_conclusiones.ipynb
+├── app/
+│ ├── Home.py
+│ └── pages/
+│ ├── 01_Dataset.py
+│ ├── 02_EDA.py
+│ ├── 03_PCA.py
+│ └── 04_Conclusiones.py
+├── reports/
+│ └── informe_final.pdf
+└── logs/
+└── pipeline_log.csv
+
+## Preparación y calidad de datos
+El dataset original presentaba duplicados exactos (126 filas), user_id duplicados (34 usuarios con más de un registro), 15 variantes en subscription_plan, 26 en country y 29 en favorite_genre. Se detectaron valores negativos en age, monthly_watch_time_mins y customer_support_tickets, outliers extremos y fechas inválidas en last_login_date. Se realizó análisis MCAR/MAR/MNAR identificando que los nulos en monthly_watch_time_mins son MAR. Todas las decisiones están documentadas en `logs/pipeline_log.csv` y justificadas en `notebooks/02_calidad_y_limpieza.ipynb`.
+
+## Resumen del análisis exploratorio
+El EDA incluyó análisis univariado, bivariado y multivariado. El usuario típico tiene 35 años, consume alrededor de 750 minutos mensuales y abre entre 0 y 1 tickets de soporte. La distribución por país es equilibrada. El plan Básico concentra el 45% de los usuarios en todos los mercados. La matriz de correlación mostró que las variables numéricas son prácticamente independientes entre sí, con correlaciones menores a 0.02 en valor absoluto. Ver `notebooks/03_eda.ipynb`.
+
+## Reducción de dimensionalidad
+Se aplicó One-Hot Encoding sobre las variables categóricas y StandardScaler sobre todas las variables antes del PCA. Se necesitan 13 componentes para explicar el 80% de la varianza y 14 para el 90%, lo que refleja la baja correlación entre variables. PC1 captura la dimensión de plan y consumo, mientras que PC2 captura preferencias de contenido y origen geográfico. Ver `notebooks/04_pca.ipynb`.
+
+## Visualización interactiva
+La aplicación Streamlit incluye 5 páginas: Home, Dataset, EDA, PCA y Conclusiones. El EDA presenta 2 visualizaciones univariadas, 2 bivariadas y 1 multivariada con interpretación para cada una. Enlace público: [Aplicación en Streamlit Cloud](https://tu-usuario-app.streamlit.app)
+
+## Cómo ejecutar localmente
+1. Clonar el repositorio: `git clone https://github.com/tu-usuario/PI_Mineria_Datos_1`
+2. Crear entorno virtual: `python -m venv .venv`
+3. Activar entorno: `source .venv/bin/activate` (Linux/Mac) o `.venv\Scripts\activate` (Windows)
+4. Instalar dependencias: `pip install -r requirements.txt`
+5. Ejecutar la aplicación: `streamlit run app/Home.py`
+
+## Conclusiones
+El análisis no encontró correlaciones significativas entre las variables numéricas del dataset. El plan elegido y el consumo no dependen del país ni de la edad. Los tickets de soporte no afectan el consumo mensual. El PCA confirmó la independencia entre variables al requerir 13 componentes para el 80% de varianza. Las limitaciones principales son la imputación aplicada en varias columnas y el alcance condicionado por las variables disponibles.
