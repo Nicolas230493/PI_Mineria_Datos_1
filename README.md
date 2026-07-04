@@ -55,10 +55,10 @@ El EDA incluyó análisis univariado, bivariado y multivariado. El usuario típi
 Se aplicó One-Hot Encoding sobre las variables categóricas y StandardScaler sobre todas las variables antes del PCA. Se necesitan 13 componentes para explicar el 80% de la varianza y 14 para el 90%, lo que refleja la baja correlación entre variables. PC1 captura la dimensión de plan y consumo, mientras que PC2 captura preferencias de contenido y origen geográfico. Ver `notebooks/04_pca.ipynb`.
 
 ## Visualización interactiva
-La aplicación Streamlit incluye 5 páginas: Home, Dataset, EDA, PCA y Conclusiones. El EDA presenta 2 visualizaciones univariadas, 2 bivariadas y 1 multivariada con interpretación para cada una. Enlace público: [Aplicación en Streamlit Cloud](https://tu-usuario-app.streamlit.app)
+La aplicación Streamlit incluye 5 páginas: Home, Dataset, EDA, PCA y Conclusiones. El EDA presenta 2 visualizaciones univariadas, 2 bivariadas y 1 multivariada con interpretación para cada una. Enlace público: [Aplicación en Streamlit Cloud](https://pimineriadatos1-ws4febtporanq5vkpgkhjn.streamlit.app/)
 
 ## Cómo ejecutar localmente
-1. Clonar el repositorio: `git clone https://github.com/tu-usuario/PI_Mineria_Datos_1`
+1. Clonar el repositorio: `git clone https://github.com/Nicolas230493/PI_Mineria_Datos_1.git`
 2. Crear entorno virtual: `python -m venv .venv`
 3. Activar entorno: `source .venv/bin/activate` (Linux/Mac) o `.venv\Scripts\activate` (Windows)
 4. Instalar dependencias: `pip install -r requirements.txt`

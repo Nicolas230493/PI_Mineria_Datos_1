@@ -20,7 +20,7 @@ with col1:
     
     st.markdown("### 🏫 Mineria de Datos I")
     st.markdown("- **Comisión:** Turno Tarde - Sede Nodo Tecnologico ")
-    st.markdown("- **Fecha:** Junio 2026")
+    st.markdown("- **Fecha:** 08 de Julio 2026")
 
 with col2:
     st.markdown("### 📝 Contexto del Proyecto")
@@ -32,6 +32,6 @@ with col2:
     )
     
     st.markdown("### 🔗 Enlaces Operativos")
-    st.markdown("[📂 Repositorio Público de GitHub](https://github.com/tu-usuario/PI_Mineria_Datos_1)")
+    st.markdown("[📂 Repositorio Público de GitHub](https://github.com/Nicolas230493/PI_Mineria_Datos_1.git)")
 
 st.info("💡 Despliega la barra lateral de la izquierda para navegar entre las páginas obligatorias del proyecto.")
